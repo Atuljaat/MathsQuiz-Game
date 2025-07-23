@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Timer, CheckCircle, XCircle , Dices   } from "lucide-react";
-import { UserContext } from "@/store/userStore";
+import { UserContext } from "@/store/UserStore";
 import { Input } from "@/components/ui/input"
 
 function Maths() {
