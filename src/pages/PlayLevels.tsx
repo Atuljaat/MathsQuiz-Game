@@ -26,8 +26,6 @@ function PlayLevels({ levelInfo }: { levelInfo: LevelInfo }) {
   const [options, setOptions] = useState<string[]>([]);
   const [result, setResult] = useState("");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [rightAnswers, setRightAnswers] = useState(0);
-  const [wrongAnswers, setWrongAnswers] = useState(0);
   const [timeLeft, setTimeLeft] = useState(levelInfo.timeGiven);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -75,10 +73,7 @@ function PlayLevels({ levelInfo }: { levelInfo: LevelInfo }) {
     setIsAnswered(true);
 
     setTimeout(() => {
-      if (userAnswer === result) {
-        setRightAnswers((prev: number) => prev + 1);
-      } else {
-        setWrongAnswers((prev: number) => prev + 1);
+      if (userAnswer != result) {
         setIsPlaying(false);
         setLevelCompleted(false);
         setTimeLeft(0);
@@ -99,8 +94,8 @@ function PlayLevels({ levelInfo }: { levelInfo: LevelInfo }) {
 
   const resetGame = () => {
     setCurrentQuestionIndex(0);
-    setRightAnswers(0);
-    setWrongAnswers(0);
+    // Removed setRightAnswers(0) as rightAnswers is unused
+    // setWrongAnswers(0);
     setTimeLeft(levelInfo.timeGiven);
     setSelectedAnswer(null);
     setIsAnswered(false);
