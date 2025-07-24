@@ -3,7 +3,7 @@ import { Route , Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import Menu from "./pages/Menu"
 import Level from "./pages/Level"
-import Middleware from "./pages/middleware"
+import Middleware from "./pages/Middleware"
 
 function App() {
   return (

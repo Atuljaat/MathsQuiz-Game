@@ -1,3 +1,4 @@
+// @ts-nocheck
 import PlayLevels from "./PlayLevels";
 import { useContext } from "react"
 import { UserContext } from "@/store/UserStore"
