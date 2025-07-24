@@ -10,6 +10,8 @@ interface UserContextType {
     setHighScore: (score: number) => void;
     isLoggedIn: boolean;
     setIsLoggedIn: (loggedIn: boolean) => void;
+    isPlaying : boolean;
+    setIsPlaying: (playing: boolean) => void;
 }
 
 // Create context with proper typing
@@ -19,7 +21,7 @@ export const UserProvider: FC<PropsWithChildren<object>> = ({ children }) => {
     const [username, setUsername] = useState<string>(localStorage.getItem('username') || '');
     const [highScore, setHighScore] = useState<number>(parseInt(localStorage.getItem('highScore') || '0'));
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!localStorage.getItem('username')); // Initialize based on username
-    
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
     return (
         <UserContext.Provider value={{
             username, 
@@ -27,7 +29,9 @@ export const UserProvider: FC<PropsWithChildren<object>> = ({ children }) => {
             highScore, 
             setHighScore, 
             isLoggedIn, 
-            setIsLoggedIn
+            setIsLoggedIn,
+            isPlaying,
+            setIsPlaying
         }}>
             {children}
         </UserContext.Provider>

@@ -2,11 +2,13 @@ import { useCallback, useEffect, useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Timer, CheckCircle, XCircle , Dices   } from "lucide-react";
+import { Timer, CheckCircle, XCircle   } from "lucide-react";
 import { UserContext } from "@/store/UserStore";
-import { Input } from "@/components/ui/input"
+import { giveRandomTips } from "../randomTips.js";
+import { useNavigate } from "react-router-dom";
 
 function Maths() {
+    const navigate = useNavigate();
     const [equation, setEquation] = useState('')
     const [options, setOptions] = useState<number[]>([])
     const [result, setResult] = useState(0)
@@ -24,22 +26,9 @@ function Maths() {
     if (!context) {
         throw new Error('didnt get context');
     }
-    const { username, setUsername, highScore, setHighScore, isLoggedIn, setIsLoggedIn } = context
+    const { username, highScore, setHighScore } = context
 
-    const Tips = [
-        'Think fast and dont overthink the question.',
-        'I forget to handle decimals , so every decimal option is correct.',
-        'If you are not sure about the answer , just guess it.',
-        'You can use a calculator , if you have get time to use one',
-        'Get good ',
-        'hahahahahhahahahahahaahahaha ',
-        'Inform an adult if you are having trouble with the game , just kidding.',
-        'ask Ai ',
-        'now i m out of tips ',
-        'sometimes no tip is a good tip',
-        ' Oh no , i ran out of tips',
-        'Chatgpt generate me some tips for a maths game',
-    ]
+    
 
     useEffect(() => {
         const gameDifficulty = {
@@ -204,16 +193,16 @@ function Maths() {
         setIsHighScoreBeaten(false);
     };
 
-    const enterGame = () => {
-        if (String(username).trim() === '') {
-            alert('Please enter a valid username');
-            return;
-        }
-        console.log('login in happen')
-        setIsLoggedIn(true);
-        localStorage.setItem('username', username);
-        resetGame();
-    }
+    // const enterGame = () => {
+    //     if (String(username).trim() === '') {
+    //         alert('Please enter a valid username');
+    //         return;
+    //     }
+    //     console.log('login in happen')
+    //     setIsLoggedIn(true);
+    //     localStorage.setItem('username', username);
+    //     resetGame();
+    // }
 
     const shareScore = () => {
         if (navigator.share) {
@@ -230,22 +219,9 @@ function Maths() {
         }
     }
 
-    const setRandomUsername = async () => {
-        try {
-            const response = await fetch('https://randomuser.me/api/')
-            if (response.ok) {
-                const jsonFormat = await response.json()
-                const name = jsonFormat.results[0].login.username
-                setUsername(name);
-        }
-    } catch (error) {
-        console.log(error)
-    }
-    }
 
     return (
         <div className="bg-gradient-to-t from-[#262626] to-[#0c0a09]  retro  min-h-screen flex items-center justify-center p-4">
-            {isLoggedIn ? (
                 <div>
                     {isPlaying ?
                         <div className="w-full max-w-2xl space-y-6">
@@ -338,12 +314,12 @@ function Maths() {
                                 </div>
                             </div>
                             <div className="text-center my-2">
-                                <p className="text-gray-400 text-xl md:text-2xl mt-2"> Tip: {Tips[generateRandomNumber(0, Tips.length)]}</p>
+                                <p className="text-gray-400 text-xl md:text-2xl mt-2"> Tip: {giveRandomTips()}</p>
                             </div>
                             <div className="text-center my-2">
                                 <p className="text-gray-300 text-xl lg:text-2xl mt-2"> HighScore : {highScore} </p>
                             </div>
-                            <div className="flex items-center justify-center my-10 gap-5" >
+                            <div className="flex items-center justify-center mt-10 gap-5" >
                                 <Button className="p-5 bg-gray-600 hover:bg-gray-700 hover:scale-105  text-lg cursor-pointer" onClick={resetGame} >
                                     Try Again
                                 </Button>
@@ -351,31 +327,14 @@ function Maths() {
                                     Share Your Score
                                 </Button>
                             </div>
+                            <div className="mt-4">
+                                <Button className="p-5 bg-gray-600 hover:bg-gray-700 hover:scale-105  text-lg cursor-pointer" onClick={() => navigate('/menu')} >
+                                    Back to Menu
+                                </Button>
+                            </div>
                         </div>
                     }
                 </div>
-            ) : (
-                <div>
-                    <div className="text-white text-4xl text-center" >
-                        Please Enter Username to Play
-                    </div>
-                        <form className="flex flex-col gap-3 items-center justify-center mt-8" onSubmit={enterGame}>
-                        <div className="flex items-center justify-center gap-5 mb-4">
-                        <Input
-                            className="w-full p-5  max-w-xs text-gray-300"
-                            placeholder="Enter your username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-    
-                        <Dices onClick={setRandomUsername} className="cursor-pointer hover:scale-105" size={34} color={'white'} />
-                        </div>
-                        <Button className="p-5 bg-gray-600 hover:bg-gray-700 hover:scale-105  text-lg cursor-pointer ml-2">
-                            Submit
-                        </Button>
-                        </form>
-                </div>
-            )}
         </div>
     );
 }
