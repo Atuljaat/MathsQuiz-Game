@@ -1,4 +1,4 @@
-import PlayLevels from "./PlayLevels"
+import PlayLevels from "./PlayLevels";
 import { useContext } from "react"
 import { UserContext } from "@/store/UserStore"
 import { useParams } from "react-router-dom";

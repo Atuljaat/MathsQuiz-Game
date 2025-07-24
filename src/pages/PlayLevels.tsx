@@ -4,8 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Timer, CheckCircle, XCircle } from "lucide-react";
 import { UserContext } from "@/store/UserStore";
-// @ts-expect-error: whyyyy this is happening
-import { giveRandomTips } from "../randomTips.js";
+import giveRandomTips from "./giveRandomTips";
 import { useNavigate } from "react-router-dom";
 
 interface Question {
@@ -21,7 +20,7 @@ interface LevelInfo {
   questions: Question[];
 }
 
-function Maths({ levelInfo }: { levelInfo: LevelInfo }) {
+function PlayLevels({ levelInfo }: { levelInfo: LevelInfo }) {
   const navigate = useNavigate();
   const [equation, setEquation] = useState("");
   const [options, setOptions] = useState<string[]>([]);
@@ -302,4 +301,4 @@ function Maths({ levelInfo }: { levelInfo: LevelInfo }) {
   );
 }
 
-export default Maths;
+export default PlayLevels;

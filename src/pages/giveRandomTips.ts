@@ -13,7 +13,9 @@ const Tips = [
         'Chatgpt generate me some tips for a maths game',
     ]
 
-export const giveRandomTips = () => {
+const giveRandomTips = () => {
     const randomIndex = Math.floor(Math.random() * Tips.length);
     return Tips[randomIndex];
 }
+
+export default giveRandomTips;

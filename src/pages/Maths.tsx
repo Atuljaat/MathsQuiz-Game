@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Timer, CheckCircle, XCircle   } from "lucide-react";
 import { UserContext } from "@/store/UserStore";
-import { giveRandomTips } from "../randomTips.js";
+import giveRandomTips from "./giveRandomTips";
 import { useNavigate } from "react-router-dom";
 
 function Maths() {
