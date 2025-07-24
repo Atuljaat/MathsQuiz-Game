@@ -121,7 +121,7 @@ function PlayLevels({ levelInfo }: { levelInfo: LevelInfo }) {
 
   const nextLevel = () => {
     const nextLevelId = levelInfo.id + 1;
-    if (nextLevelId <= 15) {
+    if (nextLevelId <= 12) {
         navigate(`/levels/${nextLevelId}`);
         resetGame();
     } else {
